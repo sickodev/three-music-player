@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: whitesmoke;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbar {
+  height: 40px;
+  width: 100%;
+  background-color: bisque;
+}
+
+.player {
+  padding: 4px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.song-details {
+  display: flex;
+  align-items: center;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add this CSS to your project */
+.range-slider-container {
+  position: relative;
+  width: 100%;
+  height: 2.5rem;
+}
+
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+}
+
+.range-slider::-moz-range-thumb {
+  width: 0;
+  height: 0;
+}
+
+.range-slider::-ms-thumb {
+  width: 0;
+  height: 0;
+}

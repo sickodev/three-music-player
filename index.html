@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three JS TPS</title>
+  <script defer type="module" src="/src/audio-controls.ts"></script>
+  <script defer type="module" src="./src/clock.ts"></script>
+</head>
+
+<body class="m-0 h-screen w-screen">
+  <div id="app" class="relative h-full w-full">
+    <div class="absolute h-full w-full z-10 flex flex-col justify-between space-x-5 items-center">
+      <div class="w-full p-2 flex items-center justify-between bg-black/80">
+        <div class="flex space-x-4 w-1/5 md:w-[10%]">
+          <p>Music</p>
+          <p class="opacity-30">Radio</p>
+        </div>
+        <form action="" class="w-[80%] flex items-center space-x-2 p-1 border justify-between">
+          <input type="text"
+            class="w-5/6 bg-transparent text-lg text-white focus:outline-none placeholder:italic placeholder:font-thin placeholder:opacity-65"
+            placeholder="Search for a song..." />
+          <button type="submit" class="md:hidden flex items-center space-x-4 group border-l border-gray-100/30 px-2">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewBox="0 0 64 64"
+              enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <g>
+                  <circle fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" cx="21" cy="21" r="20">
+                  </circle>
+                  <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="35" y1="35" x2="41"
+                    y2="41"></line>
+                  <rect x="46.257" y="37.065" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 121.9178 50.5)"
+                    fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" width="8.485" height="26.87">
+                  </rect>
+                </g>
+              </g>
+            </svg>
+            <p
+              class="group-hover:opacity-100 opacity-0 duration-200 transition-all ease-in group-hover:-translate-x-2 translate-x-2">
+              Search</p>
+          </button>
+        </form>
+        <div id="clock" class="w-[10%] text-right mx-2">
+          CLOCK
+        </div>
+      </div>
+      <div id="player area" class="w-full bg-black/80 p-1 flex justify-between">
+        <div id="song-details" class="flex space-x-2 w-2/5">
+          <img src="https://i1.sndcdn.com/artworks-FuuNz3LBsQWW-0-t500x500.jpg" alt="album-cover" height="50px"
+            width="90px" class="hover:scale-105 transition duration-300 ease-in-out object-fill">
+          <div id="song-info" class="flex flex-col justify-end my-2">
+            <!-- <p class="text-sm text-gray-400/90">Now playing...</p> -->
+            <div>
+              <h6 class="text-lg">Tommy Richman</h6>
+              <p class="text-gray-400 font-medium text-sm">Devil Is A Lie</p>
+            </div>
+          </div>
+        </div>
+        <div id="player-settings" class="w-3/4 h-full px-2 m-2 flex flex-col justify-center">
+          <div class="range-slider-container">
+            <div class="w-full bg-gray-800 rounded-full h-1">
+              <div class="bg-green-700 h-1 rounded-full" id="progress-bar" style="width: 50%">
+
+              </div>
+            </div>
+            <input type="range" min="0" max="100" value="10" class="range-slider" id="progress-slider"
+              oninput="seekAudio(this.value)">
+            <div class="flex justify-between text-sm text-neutral-700 font-semibold">
+              <p id="current">0:00</p>
+              <p id="duration">2:42</p>
+            </div>
+          </div>
+          <div class="flex w-full items-center justify-center space-x-4 mb-4">
+            <div class="">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 64 64"
+                enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel"
+                      stroke-miterlimit="10" points="32.936,48.936 15.936,31.936 32.936,14.936 "></polyline>
+                  </g>
+                  <g>
+                    <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel"
+                      stroke-miterlimit="10" points="47.936,48.936 30.936,31.936 47.936,14.936 "></polyline>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <button id="playPauseButton"
+              class="h-12 w-12 text-white rounded-full focus:outline-none flex items-center justify-center">
+              <svg class="" id="playIcon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 64 64"
+                enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <polygon fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel"
+                      stroke-miterlimit="10" points="27,21 41,32 27,43 "></polygon>
+                    <path fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10"
+                      d="M53.92,10.081 c12.107,12.105,12.107,31.732,0,43.838c-12.106,12.108-31.734,12.108-43.839,0c-12.107-12.105-12.107-31.732,0-43.838 C22.186-2.027,41.813-2.027,53.92,10.081z">
+                    </path>
+                  </g>
+                </g>
+              </svg>
+              <svg class="hidden" id="pauseIcon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 64 64"
+                enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="25" y1="23" x2="25"
+                      y2="41"></line>
+                    <line fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10" x1="38" y1="23" x2="38"
+                      y2="41"></line>
+                    <path fill="none" stroke="#ffffff" stroke-width="2" stroke-miterlimit="10"
+                      d="M53.92,10.081 c12.107,12.105,12.107,31.732,0,43.838c-12.106,12.108-31.734,12.108-43.839,0c-12.107-12.105-12.107-31.732,0-43.838 C22.186-2.027,41.813-2.027,53.92,10.081z">
+                    </path>
+                  </g>
+                </g>
+              </svg>
+            </button>
+
+            <div class="">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 64 64"
+                enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel"
+                      stroke-miterlimit="10" points="31,15 48,32 31,49 "></polyline>
+                  </g>
+                  <g>
+                    <polyline fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="bevel"
+                      stroke-miterlimit="10" points="16,15 33,32 16,49 "></polyline>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio id="audio-player" src="./music.mp3"></audio>
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
+</html>
