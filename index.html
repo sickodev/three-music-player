@@ -12,8 +12,8 @@
 
 <body class="m-0 h-screen w-screen">
   <div id="app" class="relative h-full w-full">
-    <div class="absolute h-full w-full z-10 flex flex-col justify-between space-x-5 items-center">
-      <div class="w-full p-2 flex items-center justify-between bg-black/80">
+    <div id="container" class="absolute h-full w-full z-10 flex flex-col justify-between space-x-5 items-center">
+      <div id="navbar" class="w-full p-2 flex items-center justify-between bg-black/80">
         <div class="flex space-x-4 w-1/5 md:w-[10%]">
           <p>Music</p>
           <p class="opacity-30">Radio</p>
@@ -69,7 +69,7 @@
               </div>
             </div>
             <input type="range" min="0" max="100" value="10" class="range-slider" id="progress-slider"
-              oninput="seekAudio(this.value)">
+              onchange="seekAudio(this.value)">
             <div class="flex justify-between text-sm text-neutral-700 font-semibold">
               <p id="current">0:00</p>
               <p id="duration">2:42</p>
