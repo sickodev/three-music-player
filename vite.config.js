@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 
-export const config = defineConfig({
+export default defineConfig({
   root: "./",
   publicDir: "./public",
 });
