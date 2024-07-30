@@ -8,7 +8,7 @@ import {
 } from "three/examples/jsm/Addons.js";
 import { spline } from "./spline";
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x000008, 0.2);
@@ -35,9 +35,9 @@ const bloomPass = new UnrealBloomPass(
   0.4,
   100
 );
-bloomPass.threshold = 0.02;
-bloomPass.strength = 1;
-bloomPass.radius = 0;
+bloomPass.threshold = 0.06;
+bloomPass.strength = 1.7;
+bloomPass.radius = 0.5;
 
 const composer = new EffectComposer(renderer);
 composer.addPass(renderScene);
@@ -48,7 +48,7 @@ const tubeGeometry = new THREE.TubeGeometry(spline, 222, 0.65, 16, true);
 
 const edges = new THREE.EdgesGeometry(tubeGeometry, 0.4);
 const lineMaterial = new THREE.LineBasicMaterial({
-  color: 0xaaaaaa,
+  color: 0xffe1a,
 });
 const tubeLines = new THREE.LineSegments(edges, lineMaterial);
 scene.add(tubeLines);
@@ -104,8 +104,8 @@ function updateCamera(t: number) {
 function animate(t = 0) {
   requestAnimationFrame(animate);
   updateCamera(t);
-  // composer.render();
-  renderer.render(scene, camera);
+  composer.render();
+  // renderer.render(scene, camera);
   controls.update();
 }
 

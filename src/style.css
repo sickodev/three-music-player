@@ -7,8 +7,10 @@ body {
   overflow: hidden;
   height: 100vh;
   width: 100%;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   color: whitesmoke;
+  overflow: hidden;
 }
 
 #app {
@@ -37,7 +39,6 @@ body {
 }
 
 .player {
-  padding: 4px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -56,7 +57,7 @@ body {
 .range-slider-container {
   position: relative;
   width: 100%;
-  height: 2.5rem;
+  margin: 16px 0;
 }
 
 .range-slider {

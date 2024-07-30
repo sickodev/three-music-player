@@ -1,7 +1,9 @@
+import { Radio } from "./utils/radio-channels";
+
 // Element references
-const playPauseButton = document.getElementById("playPauseButton");
-const playIcon = document.getElementById("playIcon");
-const pauseIcon = document.getElementById("pauseIcon");
+const playPauseButton = document.getElementById("play-pause-button");
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
 const audioPlayer = document.getElementById("audio-player") as HTMLAudioElement;
 const progressBar = document.getElementById("progress-bar");
 const progressSlider = document.getElementById(
@@ -98,3 +100,13 @@ progressSlider?.addEventListener("input", (event) => {
   const slider = event.target as HTMLInputElement;
   seekAudio(Number(slider.value));
 });
+
+async function getStations(tag: string) {
+  return await new Radio().getStationsByTag(tag);
+}
+
+window.onload = async () => {
+  const stations = await getStations("pop");
+  console.log(stations);
+  localStorage.setItem("stations", JSON.stringify(stations));
+};
